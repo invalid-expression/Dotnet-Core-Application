@@ -12,7 +12,7 @@ var connectionString = builder.Configuration.GetConnectionString("PlacementConte
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+                                     
 var provider = builder.Services.BuildServiceProvider();
 var config = provider.GetRequiredService<IConfiguration>();
 

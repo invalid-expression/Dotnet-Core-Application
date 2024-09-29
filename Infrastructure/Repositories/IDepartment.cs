@@ -10,11 +10,15 @@ namespace Infrastructure.Repositories
 {
     public interface IDepartment
     {
-        Task<IEnumerable<Department>> GetEmployee();
+        Task<IEnumerable<Department>> GetDepartment(); //GET THE DATA 
 
-        Task<ServiceResult<Department>> GetEmployee(int id);
+        Task<IEnumerable<Department>> GetDepartmentByID(int ID); //GET THE DATA WITH ID
 
+        Task<Response> PostDepartment(Department department); //INSERT THE DATA
 
+        Task<Response> UpdateDepartment(Department department); //UPDATE THE DATA
+
+        Task<Response> DeleteDepartment(int id); //Delete Department
 
     }
 }
