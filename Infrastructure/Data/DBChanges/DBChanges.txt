@@ -1,0 +1,20 @@
+﻿PLACE ALL DDL & DML QUERY HERE
+
+IE.CREATE, ALTER, DROP, INSERT & UPDATE
+
+------27-09-2024------
+CREATE TABLE Department(
+DeptID INT PRIMARY KEY, 
+DepartmentName VARCHAR(50),
+EmployeeNumber INT, 
+IsActive bit DEFAULT 1, 
+CreateDate datetime, 
+CreatedBy VARCHAR(50),
+ModifiedDate datetime,
+ModifiedBy VARCHAR(50));
+
+INSERT INTO Department(DeptID, DepartmentName, EmployeeNumber) VALUES (1,'Sales',123);
+
+
+
+

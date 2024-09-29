@@ -1,0 +1,66 @@
+﻿----------------- 12/SEP/2024 --------------- 
+
+Table Name: Employee
+ID
+Name Varchar(50),
+Email Varchar(50),
+Contact Varchar(20),
+Address Varchar(100)
+
+Alter Table Employee Add
+IsActive bit,
+CreateDate datetime,
+CreatedBy Varchar(50),
+ModifiedAt datetime,
+ModifiedBy varcha(50),
+ID int primary key
+
+Insert Into Employee (Name, Email, Contact, Address) VALUES 
+("Rohit", "email@email.com", "7096384103", "23 Green Palace"); 
+
+
+
+------------ QUERIES ----------------------
+Create Table Employee(
+ID int primary key Identity(1,1),
+Name Varchar(50),
+Email Varchar(50),
+Contact Varchar(20),
+Address Varchar(100)
+)
+
+Select * From Employee;
+
+Alter Table Employee Add(
+IsActive bit,
+CreateDate datetime,
+CreatedBy Varchar(50),
+ModifiedAt datetime,
+ModifiedBy varchar(50),
+ID int primary key Identity(1,1)
+)
+
+UPDATE Employee
+SET CreateDate = GETDATE()
+WHERE CreateDate IS NULL; 
+
+(Name, Email, Contact, Address) VALUES ('Rohit', 'email@email.com', '7096384103', '23 Green Palace'); s
+
+---- 14/09/2024 ----
+
+ALTER TABLE Employee
+ADD ProfilePicture NVARCHAR(MAX) NULL;
+
+------- 22/9/24 ------
+UPDATE Enployee
+SET IsActive = 1
+WHERE IsActive IS NULL;
+
+
+ALTER TABLE Employee
+ALTER COLUMN IsActive BIT NOT NULL;
+
+---------23/9/2024-----------
+UPDATE Employee
+SET CreateDate = GETDATE()
+WHERE CreateDate IS NULL;

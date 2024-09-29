@@ -1,0 +1,75 @@
+﻿@{
+    ViewData["Title"] = "Employee Index";
+}
+@model List<Employee>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/Home/Index">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Employee</li>
+    </ol>
+</nav>
+
+
+<a href="/Employee/CreateEmployee" class="btn btn-primary">Add Employee</a>
+<a href="Identity/Account/Logout" class="btn btn-danger">Logout</a>
+<br />
+<table id="myTable" class="display, table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Profile Picture</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Contact</th>
+            <th>Address</th>
+            <th>Action</th>
+            <th>Profile</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var data in Model)
+        {
+            <tr>
+                <td>@data.ID</td>
+                <td>
+                    <a href="@Url.Action("YourProfile", "Employee", new { ID = data.ID })">
+                        <img src="~/images/@data.ProfilePicture"
+                             class="rounded-circle"
+                             height="40" width="40"
+                             asp-append-version="true" alt="Image" />
+                    </a>
+                    
+                </td>
+                <td>@data.Name</td>
+                <td>@data.Email</td>
+                <td>@data.Contact</td>
+                <td>@data.Address</td>
+                <td>
+                    <a class="btn btn-primary" href="@Url.Action("UpdateEmployee", "Employee", new { ID = data.ID })">Edit</a>
+                    <a class="btn btn-danger" href="@Url.Action("DeleteEmployee", "Employee", new { ID = data.ID })">Delete</a>
+                </td>
+                <td>
+                    <a class="btn btn-secondary" href="@Url.Action("YourProfile", "Employee", new { ID = data.ID })">View Profile</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+<a href="/Home/Index" class="btn btn-primary">Back</a>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+<script>
+    $(document).ready(function () {
+        $('#myTable').DataTable({
+            "paging": true,
+            "searching": true,
+            "ordering": true,
+            "info": true
+        });
+    });
+</script>

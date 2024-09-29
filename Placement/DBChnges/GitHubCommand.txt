@@ -1,0 +1,13 @@
+﻿----- NEW REPOSATORY ------
+echo "# Placement" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin git@github.com:invalid-expression/Placement.git
+git push -u origin main
+
+------ existing repository --------
+git remote add origin git@github.com:invalid-expression/Placement.git
+git branch -M main
+git push -u origin main

@@ -1,0 +1,65 @@
+﻿@model Employee
+
+<nav aria-label="breadcrumb">
+    <ul class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/Home/Index">Home</a></li>
+        <li class="breadcrumb-item"><a href="/Employee/Index">Employee</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Edit</li>
+    </ul>
+</nav>
+
+<div class="container bg-dark bg-opacity-25 p-4 rounded">
+    <h2 class="text-center my-4">Create New Employee Account</h2>
+    <form asp-action="UpdateEmployee" enctype="multipart/form-data" method="post" class="container p-4 rounded">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label asp-for="ProfileImage" class="form-label">Profile Picture</label>
+                <input asp-for="ProfileImage" class="form-control" id="customFile" placeholder="Choose Your Profile Picture">
+                <span asp-validation-for="ProfileImage" class="text-danger"></span>
+                <br />
+                <label class="form-label">Name</label>
+                <input asp-for="ID" type="hidden" />
+                <input asp-for="Name" class="form-control" placeholder="Enter Name" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+
+                <label class="form-label">Email</label>
+                <input asp-for="Email" class="form-control" placeholder="Enter Email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+
+                <label class="form-label">Contact</label>
+                <input asp-for="Contact" class="form-control" placeholder="Enter Contact" />
+                <span asp-validation-for="Contact" class="text-danger"></span>
+
+                <label class="form-label">Address</label>
+                <input asp-for="Address" class="form-control" placeholder="Enter Address" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+
+                <label class="form-label">Status</label>
+                <select asp-for="IsActive" class="form-control">
+                    <option value=true>Active</option>
+                    <option value=false>Not Active</option>
+                </select>
+
+                <input type="hidden" asp-for="CreateDate" />
+
+                <br />
+                <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Update</button>
+                <a class="btn btn-secondary" href="/Employee/Index">Back</a>
+
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    if (!document.getElementById("file")) {
+        alert("Select File first");
+        return;
+    }
+    var url = "\wwwroot\jpg\";
+    var data = new FormData(document.getElementById("form"));
+    fetch(url, {
+        method: "POST",
+        data: data
+    });
+</script>
