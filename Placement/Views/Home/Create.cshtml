@@ -1,0 +1,86 @@
+﻿@using System.Text
+@{
+    ViewData["Title"] = "Create Department Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var configuration = (IConfiguration)ViewContext.HttpContext.RequestServices.GetService(typeof(IConfiguration));
+    var apiBaseUrl = configuration["ApiSettings:APIBaseUrl"];
+}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="text-center mb-4">Department Registration</h2>
+            <div class="form-group">
+                <label for="name">Department Name</label>
+                <input type="text" class="form-control" id="DepartmentName" name="firstName" required>
+                <span id="DepartmentNameValidate"></span>
+            <button id="registerBtn" type="button" class="btn btn-primary">Create</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts 
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            alert('hello');
+            $('DepartmentName').blur(validateForm);
+
+            $('registerBtn').click(function (e) {
+                e.preventDefault();
+
+                var Customer = {
+                    DepartmentName: $('$departmentName').val()
+                };
+
+                if (validateForm(department)) {
+
+                    const apiURL = '/Departmnt/Create';
+                    $.ajax({
+                        url: apiURL,
+                        type: 'POST',
+                        contentType = 'application/json',
+                        data: JSON.stringify(department),
+                        success: function (response) {
+                            if (!response.result) {
+                                alert(response.message);
+                            }
+                            else {
+                                alert(response.message);
+                                window.Location = '/Home/Index' //Redirect To Home After Succefully Data Created/Inserted
+
+                            }
+                            console.log(response);
+                        },
+                        error: function (xhr, textStatus, errorThrown) {
+                            alert(xhr.responseJSON.message)
+                        }
+                    });
+                }
+            });
+        });
+
+        function validateForm(formData) {
+            let validateName = /^[a-zA-Z]+$/;
+
+            var DepartmentName = $('#departmentName').val().trim();
+
+            let isValid = true;
+
+            if (DepartmentName === '') {
+                $('#departmentNameValidate').text('please enter department name');
+                document.getElementById("departmentNameValidate").style.color = "red";
+                isValid = false;
+            }
+            else if (!validateName.test(DepartmentName)) {
+                $('#departmentNameValidate').text('please enter alphabets only');
+                document.getElementById("departmentNameValidate").style.color = "red";
+                isValid = false;
+            }
+            else{
+                $('#departmentNameValidate').text('')
+            }
+        }
+    </script>
+}

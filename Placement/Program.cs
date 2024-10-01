@@ -12,7 +12,15 @@ var connectionString = builder.Configuration.GetConnectionString("PlacementConte
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-                                     
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        builder => builder.AllowAnyOrigin()
+                          .AllowAnyMethod()
+                          .AllowAnyHeader());
+});
+
 var provider = builder.Services.BuildServiceProvider();
 var config = provider.GetRequiredService<IConfiguration>();
 
@@ -46,6 +54,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseCors("AllowAll");
 
 app.UseEndpoints(endpoints =>
 {

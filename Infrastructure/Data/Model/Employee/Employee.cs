@@ -13,7 +13,7 @@ namespace Infrastructure.Data.Model.Employee
         public int ID { get; set; }
 
 
-        public string? Name { get; set; }
+        public string? Name { get; set; } //nullable column in Table
 
 
         public string? Email { get; set; }

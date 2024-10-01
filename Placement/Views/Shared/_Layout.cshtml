@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Placement.styles.css" asp-append-version="true" />
     <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
+    @* <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> *@
 </head>
 
 <body>
@@ -30,6 +31,12 @@
                         </li>
                         <li class="nav-item @(ViewContext.RouteData.Values["controller"]?.ToString() == "Employee" && ViewContext.RouteData.Values["action"]?.ToString() == "Index" ? "active" : "")">
                             <a class="nav-link text-dark active" asp-area="" asp-controller="Employee" asp-action="Index">Emloyee</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark active" asp-area="" asp-controller="Home" asp-action="Department">Department-API</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark active" asp-area="" asp-controller="Home" asp-action="Create">Department-API-Create</a>
                         </li>
                     </ul>
                 </div>

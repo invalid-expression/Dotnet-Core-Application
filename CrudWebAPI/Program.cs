@@ -21,7 +21,14 @@ var configuration = builder.Configuration;
 builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("DBConnect"))); //dbcontext register
 
-
+//CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        builder => builder.AllowAnyOrigin()
+                          .AllowAnyMethod()
+                          .AllowAnyHeader());
+});
 
 var app = builder.Build();
 app.UseDeveloperExceptionPage(); //to see complete error
@@ -31,6 +38,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors("AllowAll"); //CORS
 
 app.UseHttpsRedirection();
 
