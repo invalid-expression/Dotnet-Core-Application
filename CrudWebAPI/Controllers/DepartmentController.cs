@@ -25,9 +25,9 @@ namespace CrudWebAPI.Controllers
         }
 
         [HttpGet("{DeptID}")]
-        public async Task<ActionResult<IEnumerable<Department>>> GetDepartmentByID(int ID)
+        public async Task<ActionResult<Department>> GetDepartmentByID(int DeptID)
         {
-            var Department = await _department.GetDepartmentByID(ID);
+            var Department = await _department.GetDepartmentByID(DeptID);
             return Ok(Department);
         }
 
@@ -41,8 +41,8 @@ namespace CrudWebAPI.Controllers
         [HttpPut("{DeptID}")]
         public async Task<ActionResult<Response>> UpdateDepartment(int ID, Department department)
         {
-             var Department = await _department.UpdateDepartment(department);
-             return Ok(Department);
+            var Department = await _department.UpdateDepartment(department);
+            return Ok(Department);
         }
 
         [HttpDelete]

@@ -12,6 +12,6 @@ namespace Infrastructure.Data.Model.Department
         [Key]
         public int? DeptID { get; set; }
         public string? DepartmentName { get; set; }
-        public int? EmployeeNumber { get; set; }
+        public int? EmployeeNumber { get; set; }//Employee number (EMPNO) of the department manager.
     }
 }

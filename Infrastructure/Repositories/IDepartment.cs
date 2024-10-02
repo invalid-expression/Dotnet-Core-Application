@@ -12,7 +12,7 @@ namespace Infrastructure.Repositories
     {
         Task<IEnumerable<Department>> GetDepartment(); //GET THE DATA 
 
-        Task<IEnumerable<Department>> GetDepartmentByID(int ID); //GET THE DATA WITH ID
+        Task<Department> GetDepartmentByID(int ID); //GET THE DATA WITH ID
 
         Task<Response> PostDepartment(Department department); //INSERT THE DATA
 

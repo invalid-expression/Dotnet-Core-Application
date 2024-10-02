@@ -1,7 +1,7 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@{  
+@{
 }
 <div class="table-responsive">
     <table id="example" class="display" style="width:100%">
@@ -19,7 +19,38 @@
     </table>
 </div>
 
-@section Scripts{
+<div id="editCustomerModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editCustomerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editCustomerModalLabel">Edit Customer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editCustomerForm">
+                    <input type="hidden" class="form-label" id="customerId" />
+                    <div class="mb-3">
+                        <label for="deptName" class="form-label"> Department Name </label>
+                        <input type="text" class="form-control" id="deptName" required>
+                        <span id="deptName"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="deptManager" class="form-label"> Manager of Dept </label>
+                        <input type="text" class="form-control" id="deptManager" required>
+                        <span id="deptManager"></span>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="updateCustomer()">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+@section Scripts {
     <script>
         $(document).ready(function () {
             alert('Hi');
@@ -45,7 +76,7 @@
                             '</tr>';
                         tableBody.append(row);
                     });
-                   
+
                 },
                 error: function (xhr, status, error) {
                     // This function runs if there's an error
@@ -53,29 +84,61 @@
                 }
             });
         });
-    </script>
-    
-    <script>
-        const ApiBaseUrl = 'https://localhost:7063/api/Department/GetDepartmentByID'
-        function editDepartment(dpetID) {
-            var editApiUrl = ApiBaseUrl + deptID;
+
+        // Function to delete a department
+        function deletedept(deptID) {
+            if (confirm('Are you sure you want to delete this department?')) {
+                // AJAX call to delete the department
+                $.ajax({
+                    url: 'https://localhost:7063/api/Department/{deptID}',  // API URL with department ID
+                    type: 'DELETE',  // HTTP method DELETE for deleting data
+                    contentType: 'application/json',  // Expecting JSON response
+                    success: function (response) {
+                        // Remove the row from the table
+                        $('#departmentList').find('tr').filter(function () {
+                            return $(this).find('td').eq(1).text() == deptID;
+                        }).remove();
+
+                        alert('Department deleted successfully!');
+                    },
+                    error: function (xhr, status, error) {
+                        alert('Error deleting department: ' + error);
+                    }
+                });
+            }
+        }
+
+        function updateCustomer() {
+            debugger;
+        }
+
+
+        function editDepartment(DeptID) {
+            debugger;
+
+            var editApiUrl = 'https://localhost:7063/api/Department/' + DeptID;
+            debugger;
             $.ajax({
-                url: ApiBaseUrl,
+                url: editApiUrl,
                 type: 'GET',
                 dataType: 'json',
-                success: function (response) {
-                    console.log(response);
-                    document.getElementById('deptID').value = response.dpetID;
-                    document.getElementById('editDepartmentName').value = response.departmentName;
+                success: function (customer) {
+                    debugger;
+                    console.log(customer);
+                    document.getElementById('deptName').value = customer.departmentName;
+                    document.getElementById('deptManager').value = customer.DeptID
 
-                    var editDepartmentModal = new boolstrap.Modal(document.getElementById('editDepartmentModal'));
-                    editDepartmentModal.show();
+                    var editCustomerModal = new bootstrap.Modal(document.getElementById('editCustomerModal'));
+                    editCustomerModal.show();
+
                 },
                 error: function (xhr, textStatus, errorThrown) {
+                    debugger;
                     console.error('Error:', errorThrown);
                 }
             });
         }
-  
+
     </script>
+
 }

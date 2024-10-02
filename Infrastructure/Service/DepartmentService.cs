@@ -27,14 +27,24 @@ namespace Infrastructure.Service
             return Data;
         }
 
-        public async Task<IEnumerable<Department>> GetDepartmentByID(int ID)
+        public async Task<Department> GetDepartmentByID(int ID)
         {
-            var Data = await _context.Department.Where(x => x.DeptID == ID).ToListAsync();
+            var Data = await _context.Department.Where(x => x.DeptID == ID).FirstOrDefaultAsync();
             return Data;
         }
 
         public async Task<Response> PostDepartment(Department department)
         {
+            var IsDeptExist = _context.Department.Any(x => x.DepartmentName == department.DepartmentName);
+            if (IsDeptExist)
+            {
+                return new Response
+                {
+                    StatusCode = 200,
+                    Message = "Department Already Exist",
+                    Result = false
+                };
+            }
             var Data = await _context.Department.AddAsync(department);
             await _context.SaveChangesAsync();
 
@@ -74,7 +84,7 @@ namespace Infrastructure.Service
                 await _context.SaveChangesAsync();
                 return new Response { StatusCode = 200, Message = "Removed", Result = true };
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return new Response
                 {
@@ -83,7 +93,7 @@ namespace Infrastructure.Service
                     Result = false
                 };
             }
-            
+
         }
 
         public async Task<IEnumerable<Department>> DisableDepartment(int ID)
